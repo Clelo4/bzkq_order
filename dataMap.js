@@ -1,0 +1,1 @@
+module.exports.API_SECRET = 'vGpN60+B%V1dZrJxMTm~PdKa$p9-4&z1';

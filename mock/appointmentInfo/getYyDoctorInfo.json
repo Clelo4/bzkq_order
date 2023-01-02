@@ -1,0 +1,66 @@
+{
+  "status": 0,
+  "message": "查询成功",
+  "data": [
+    {
+      "doctId": "4291",
+      "doctImgUrl": "",
+      "doctName": "张爽",
+      "doctIntroduced": "牙体科主治医师  专业特长：复杂根管治疗，根尖周手术",
+      "scheduleId": "43236",
+      "visitDate": 1672156800000,
+      "amPm": "上午",
+      "fee": 20,
+      "numbers": 0,
+      "visitTime": "3",
+      "ygzc": "牙体科主治医师",
+      "seqDoct": "28",
+      "znumber": 0
+    },
+    {
+      "doctId": "4294",
+      "doctImgUrl": "",
+      "doctName": "张雪",
+      "doctIntroduced": "牙体科主治医师  专业特长：龋齿、牙体硬组织疾病的充填治疗，根管治疗",
+      "scheduleId": "43238",
+      "visitDate": 1672156800000,
+      "amPm": "上午",
+      "fee": 20,
+      "numbers": 0,
+      "visitTime": "3",
+      "ygzc": "牙体科主治医师",
+      "seqDoct": "30",
+      "znumber": 0
+    },
+    {
+      "doctId": "4273",
+      "doctImgUrl": "",
+      "doctName": "魏桂芳",
+      "doctIntroduced": "综合科副主任医师  专业特长：复杂根管治疗，牙体缺损修复",
+      "scheduleId": "43218",
+      "visitDate": 1672156800000,
+      "amPm": "上午",
+      "fee": 40,
+      "numbers": 0,
+      "visitTime": "3",
+      "ygzc": "综合科副主任医师",
+      "seqDoct": "48",
+      "znumber": 0
+    },
+    {
+      "doctId": "4277",
+      "doctImgUrl": "",
+      "doctName": "王磊",
+      "doctIntroduced": "综合科主治医师  专业特长：口腔全科诊疗设计，根管治疗，牙冠修复，前牙树脂美学",
+      "scheduleId": "43233",
+      "visitDate": 1672156800000,
+      "amPm": "上午",
+      "fee": 20,
+      "numbers": 0,
+      "visitTime": "1",
+      "ygzc": "综合科主治医师",
+      "seqDoct": "121",
+      "znumber": 0
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "status": 0,
+  "message": "success",
+  "data": {
+    "lists": [
+      {
+        "deptName": "修复科门诊",
+        "deptId": "875",
+        "majorDetailId": "875",
+        "majorName": "修复专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "牙体牙髓门诊",
+        "deptId": "874",
+        "majorDetailId": "874001",
+        "majorName": "口腔综合专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "洗牙门诊",
+        "deptId": "874",
+        "majorDetailId": "874004",
+        "majorName": "口腔综合专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "牙周门诊（单纯洗牙不约）",
+        "deptId": "874",
+        "majorDetailId": "874005",
+        "majorName": "口腔综合专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "外科拔牙门诊",
+        "deptId": "874",
+        "majorDetailId": "874002",
+        "majorName": "口腔综合专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "牙周门诊（洗牙后可约）",
+        "deptId": "874",
+        "majorDetailId": "874003",
+        "majorName": "口腔综合专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "口腔种植门诊",
+        "deptId": "902",
+        "majorDetailId": "902",
+        "majorName": "口腔种植专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "正畸门诊二层（咨询可约）",
+        "deptId": "883",
+        "majorDetailId": "883001",
+        "majorName": "正畸专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "正畸门诊五层（咨询可约）",
+        "deptId": "883",
+        "majorDetailId": "883002",
+        "majorName": "正畸专业",
+        "deptIntroduced": ""
+      },
+      {
+        "deptName": "美容皮肤门诊",
+        "deptId": "937",
+        "majorDetailId": "937",
+        "majorName": "美容皮肤专业",
+        "deptIntroduced": ""
+      }
+    ]
+  }
+}
