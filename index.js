@@ -2,7 +2,7 @@ const { decrypt, jFn, lFn } = require('./utils.js');
 const initData = require('./init.json');
 const { getKey, saveKey } = require('./store.js');
 const {
-	// YysamedayAppointment, samedayAppointment,
+	YysamedayAppointment, samedayAppointment,
 	getAfterdayDepartment, getTodayDepartment,
 	getYyDoctorInfo, getDoctorInfo,
 	getScheduleInfo, getYyScheduleInfo
@@ -90,8 +90,8 @@ const orderToday = async (deptCode, patientId) => {
 	const deptId = targetAppointment.deptId;
 	const sguId = targetAppointment.sguID;
 
-	return;
-	// data = await samedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
+	// const res = await samedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
+	// console.log('挂号结果' + (res.status === 0 ? '成功' : '失败'));
 }
 
 /**
@@ -156,13 +156,32 @@ const orderAfterDay = async(deptCode, patientId) => {
 	const deptId = targetAppointment.deptId;
 	const sguId = targetAppointment.sguID;
 
-	return;
-	// data = await YysamedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
+	// const res = await YysamedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
+	// console.log('挂号结果' + (res.status === 0 ? '成功' : '失败'));
+}
+
+const startOrderToday = (deptCode, patientId) => {
+	console.log('开始计时，等到下午5点');
+	const targetTime = new Date().setHours(17, 0, 0, 5);
+	const currentTime = +new Date();
+	if (currentTime > targetTime) return;
+	setTimeout(async () => {
+		await orderToday(deptCode, patientId);
+	}, targetTime - currentTime);
+}
+
+const startAfterToday = (deptCode, patientId) => {
+	console.log('开始计时，等到上午11点');
+	const targetTime = new Date().setHours(11, 0, 0, 5);
+	const currentTime = +new Date();
+	if (currentTime > targetTime) return;
+	setTimeout(async () => {
+		await orderAfterDay(deptCode, patientId);
+	}, targetTime - currentTime);
 }
 
 const main = async() => {
 	const loginData = parseLoginJSON(initData.encrypt, initData.xSigin);
-	// print(loginData);
 	Object.entries(loginData).forEach(item => {
 		saveKey(item[0], item[1]);
 	});
@@ -171,9 +190,9 @@ const main = async() => {
 	saveKey('branchIndex', initData.branchIndex);
 
 	const patientId = +loginData.cardInfo[0].clientId;
+	const deptCode = '874004';
 
-	const deptCode = '874004'; // '874004';
-	await orderToday(deptCode);
+	orderAfterDay(deptCode, patientId);
 }
 
 main();
