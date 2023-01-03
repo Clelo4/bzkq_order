@@ -51,10 +51,19 @@ const orderToday = async (deptCode, patientId) => {
 		console.error('找不到挂号医生信息');
 		return;
 	}
-	let selectedDoctor = null;
+
 	// 选择医生算法-start
-	selectedDoctor = doctorList[0];
+	const selectedDoctor = doctorList.reduce((acc, cur) => {
+		if (acc.numbers > cur.numbers) return acc;
+		else return cur;
+	}, { numbers: 0 });
 	// 选择医生算法-end
+
+	if (selectedDoctor.numbers <= 0) {
+		console.error('无可挂号的医生');
+		return;
+	}
+	console.log(`【选中的医生信息】doctName: ${selectedDoctor.doctName} doctIntroduced: ${selectedDoctor.doctIntroduced}`)
 
 	// 获取医生排班信息
 	const scheduleInfo = await getScheduleInfo(deptCode, selectedDoctor.doctId);
@@ -64,10 +73,17 @@ const orderToday = async (deptCode, patientId) => {
 	}
 
 	// 选择就诊时段算法-start
-	const targetAppointment = scheduleInfo[0];
+	const targetAppointment = scheduleInfo.reduce((acc, cur) => {
+		if (acc.numbers > cur.numbers) return acc;
+		else return cur;
+	}, { numbers: 0  });
 	// 选择就诊时段算法-end
 
-	print(targetAppointment);
+	if (targetAppointment.numbers <= 0) {
+		console.error('医生无号源');
+		return;
+	}
+	console.log(`【选中的就诊时段】amPm: ${targetAppointment.amPm} 剩余号源: ${targetAppointment.numbers}`)
 
 	const scheduleId = targetAppointment.scheduleId;
 	const visitDate = formatDate(targetAppointment.visitDate);
@@ -101,10 +117,19 @@ const orderAfterDay = async(deptCode, patientId) => {
 		console.error('找不到挂号医生信息');
 		return;
 	}
-	let selectedDoctor = null;
+
 	// 选择医生算法-start
-	selectedDoctor = doctorList[0];
+	const selectedDoctor = doctorList.reduce((acc, cur) => {
+		if (acc.numbers > cur.numbers) return acc;
+		else return cur;
+	}, { numbers: 0 });
 	// 选择医生算法-end
+
+	if (selectedDoctor.numbers <= 0) {
+		console.error('无可挂号的医生');
+		return;
+	}
+	console.log(`【选中的医生信息】doctName: ${selectedDoctor.doctName} doctIntroduced: ${selectedDoctor.doctIntroduced}`)
 
 	// 获取医生排班信息
 	const scheduleInfo = await getYyScheduleInfo(afterDay, deptCode, selectedDoctor.doctId);
@@ -114,11 +139,17 @@ const orderAfterDay = async(deptCode, patientId) => {
 	}
 
 	// 选择就诊时段算法-start
-	const targetAppointment = scheduleInfo[0];
+	const targetAppointment = scheduleInfo.reduce((acc, cur) => {
+		if (acc.numbers > cur.numbers) return acc;
+		else return cur;
+	}, { numbers: 0  });
 	// 选择就诊时段算法-end
 
-	if (!targetAppointment) return;
-	print(targetAppointment);
+	if (targetAppointment.numbers <= 0) {
+		console.error('医生无号源');
+		return;
+	}
+	console.log(`【选中的就诊时段】amPm: ${targetAppointment.amPm} 剩余号源: ${targetAppointment.numbers}`)
 
 	const scheduleId = targetAppointment.scheduleId;
 	const visitDate = formatDate(targetAppointment.visitDate);
@@ -141,7 +172,7 @@ const main = async() => {
 
 	const patientId = +loginData.cardInfo[0].clientId;
 
-	const deptCode = '874001'; // '874004';
+	const deptCode = '874004'; // '874004';
 	await orderToday(deptCode);
 }
 
