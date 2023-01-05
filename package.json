@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./index.js 2> error.log"
   },
   "type": "commonjs",
   "dependencies": {

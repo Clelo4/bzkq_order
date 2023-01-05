@@ -204,17 +204,23 @@ const request = async(url, method, data = {}) => {
 
   const resp = await fetch('https://' + host + `/weixin-miniapp-bdkq@${xVersion}${url}${queryString && '?' + queryString}`,
     { method: realMethod, headers, data: realMethod === 'post' ? body : null });
-  const resData = await resp.json();
+  console.debug(`${realMethod} ${url}: ${+new Date() - startTime}ms`, resp.status);
+  if (!(resp.status >= 200 && resp.status < 300)) throw new Error(`${url} status ${resp.status}`);
+  let resData = {};
+  try {
+    resData = await resp.json();
+  } catch (e) {
+    console.error(e);
+  }
   if (!resData.encrypt) {
     console.error(resData);
-    throw new Error(`${url} 请求错误`);
+    throw new Error(`${realMethod} ${url} 请求错误`);
   }
   const decryptData = decrypt(xSign, resData.encrypt);
   if (decryptData.status !== 0) {
     console.error(decryptData);
     throw new Error(decryptData.message);
   }
-  console.debug(`${realMethod} ${url}: ${+new Date() - startTime}ms`);
   return decryptData.data || {};
 }
 

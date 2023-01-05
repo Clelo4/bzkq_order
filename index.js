@@ -90,8 +90,8 @@ const orderToday = async (deptCode, patientId) => {
 	const deptId = targetAppointment.deptId;
 	const sguId = targetAppointment.sguID;
 
-	// const res = await samedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
-	// console.log('挂号结果' + (res.status === 0 ? '成功' : '失败'));
+	const res = await samedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
+	console.log('挂号结果' + (res.status === 0 ? '成功' : '失败'));
 }
 
 /**
@@ -156,8 +156,8 @@ const orderAfterDay = async(deptCode, patientId) => {
 	const deptId = targetAppointment.deptId;
 	const sguId = targetAppointment.sguID;
 
-	// const res = await YysamedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
-	// console.log('挂号结果' + (res.status === 0 ? '成功' : '失败'));
+	const res = await YysamedayAppointment(patientId, scheduleId, visitDate, deptId, sguId);
+	console.log('挂号结果' + (res.status === 0 ? '成功' : '失败'));
 }
 
 const startOrderToday = (deptCode, patientId) => {

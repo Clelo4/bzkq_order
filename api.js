@@ -34,6 +34,7 @@ module.exports.getYyScheduleInfo = async(time, deptCode, doctId) => {
 
 // 预约-申请挂号
 module.exports.YysamedayAppointment = async(patientId, scheduleId, visitDate, deptId, sguId) => {
+  const branchIndex = getKey('branchIndex');
   return await request('/api/appointmentRecord/YysamedayAppointment.json', 'post', {
     "patientId": patientId,
     "scheduleId": scheduleId,
