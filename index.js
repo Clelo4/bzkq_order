@@ -1,4 +1,4 @@
-const { decrypt, jFn, lFn } = require('./utils.js');
+const { decrypt } = require('./utils.js');
 const initData = require('./init.json');
 const { getKey, saveKey } = require('./store.js');
 const {
@@ -43,12 +43,12 @@ const orderToday = async (deptCode, patientId) => {
 	if (findDept) {
 		console.log('检测到科室：', findDept.deptName);
 	} else {
-		console.error('找不到对应的科室');
+		console.log('找不到对应的科室');
 		return;
 	}
 	const doctorList = await getDoctorInfo(deptCode);
 	if (!doctorList || doctorList.length === 0) {
-		console.error('找不到挂号医生信息');
+		console.log('找不到挂号医生信息');
 		return;
 	}
 
@@ -60,7 +60,7 @@ const orderToday = async (deptCode, patientId) => {
 	// 选择医生算法-end
 
 	if (selectedDoctor.numbers <= 0) {
-		console.error('无可挂号的医生');
+		console.log('无可挂号的医生');
 		return;
 	}
 	console.log(`【选中的医生信息】doctName: ${selectedDoctor.doctName} doctIntroduced: ${selectedDoctor.doctIntroduced}`)
@@ -68,7 +68,7 @@ const orderToday = async (deptCode, patientId) => {
 	// 获取医生排班信息
 	const scheduleInfo = await getScheduleInfo(deptCode, selectedDoctor.doctId);
 	if (!scheduleInfo || scheduleInfo.length === 0) {
-		console.error('找不到医生排班信息');
+		console.log('找不到医生排班信息');
 		return;
 	}
 
@@ -80,7 +80,7 @@ const orderToday = async (deptCode, patientId) => {
 	// 选择就诊时段算法-end
 
 	if (targetAppointment.numbers <= 0) {
-		console.error('医生无号源');
+		console.log('医生无号源');
 		return;
 	}
 	console.log(`【选中的就诊时段】amPm: ${targetAppointment.amPm} 剩余号源: ${targetAppointment.numbers}`)
@@ -109,12 +109,12 @@ const orderAfterDay = async(deptCode, patientId) => {
 	if (findDept) {
 		console.log('检测到科室：', findDept.deptName);
 	} else {
-		console.error('找不到对应的科室');
+		console.log('找不到对应的科室');
 		return;
 	}
 	const doctorList = await getYyDoctorInfo(afterDay, deptCode);
 	if (!doctorList || doctorList.length === 0) {
-		console.error('找不到挂号医生信息');
+		console.log('找不到挂号医生信息');
 		return;
 	}
 
@@ -126,7 +126,7 @@ const orderAfterDay = async(deptCode, patientId) => {
 	// 选择医生算法-end
 
 	if (selectedDoctor.numbers <= 0) {
-		console.error('无可挂号的医生');
+		console.log('无可挂号的医生');
 		return;
 	}
 	console.log(`【选中的医生信息】doctName: ${selectedDoctor.doctName} doctIntroduced: ${selectedDoctor.doctIntroduced}`)
@@ -134,7 +134,7 @@ const orderAfterDay = async(deptCode, patientId) => {
 	// 获取医生排班信息
 	const scheduleInfo = await getYyScheduleInfo(afterDay, deptCode, selectedDoctor.doctId);
 	if (!scheduleInfo || scheduleInfo.length === 0) {
-		console.error('找不到医生排班信息');
+		console.log('找不到医生排班信息');
 		return;
 	}
 
@@ -146,7 +146,7 @@ const orderAfterDay = async(deptCode, patientId) => {
 	// 选择就诊时段算法-end
 
 	if (targetAppointment.numbers <= 0) {
-		console.error('医生无号源');
+		console.log('医生无号源');
 		return;
 	}
 	console.log(`【选中的就诊时段】amPm: ${targetAppointment.amPm} 剩余号源: ${targetAppointment.numbers}`)

@@ -140,6 +140,12 @@ const jFn = (data, e, timestamp, xNonce) => {
   return MD5("[" + o + "#" + MD5(u) + "#" + s + "]");
 }
 
+const debugFactory = (...prefix) => {
+  return (msg) => {
+    console.error('[DEBUG]', ...prefix, msg);
+  }
+}
+
 /**
  * 解码密文
  * @param {string} xSign 解码签名
@@ -172,7 +178,6 @@ const decrypt = (xSign, encryptString) => {
  * @returns 请求结果
  */
 const request = async(url, method, data = {}) => {
-  const startTime = +new Date();
   const realMethod = method.toLowerCase();
   const body = JSON.stringify(data);
   const xVersion = getKey('xVersion');
@@ -202,23 +207,32 @@ const request = async(url, method, data = {}) => {
     }).join('&')
     : '';
 
-  const resp = await fetch('https://' + host + `/weixin-miniapp-bdkq@${xVersion}${url}${queryString && '?' + queryString}`,
-    { method: realMethod, headers, data: realMethod === 'post' ? body : null });
-  console.debug(`${realMethod} ${url}: ${+new Date() - startTime}ms`, resp.status);
-  if (!(resp.status >= 200 && resp.status < 300)) throw new Error(`${url} status ${resp.status}`);
-  let resData = {};
-  try {
-    resData = await resp.json();
-  } catch (e) {
-    console.error(e);
+  const startTime = +new Date();
+  const realURL = 'https://' + host + `/weixin-miniapp-bdkq@${xVersion}${url}${queryString && '?' + queryString}`;
+  const realPostData = realMethod === 'post' ? body : null;
+  const resp = await fetch(realURL,
+    { method: realMethod, headers, data: realPostData });
+  const totalTime = +new Date() - startTime;
+  const text = await resp.text();
+
+  const debug = debugFactory(`${realMethod} ${resp.status} ${totalTime}ms ${realURL} ${realPostData}`);
+  if (!(resp.status >= 200 && resp.status < 300)) {
+    // 原始的数据
+    debug(text);
+    throw new Error(`请求错误${resp.status}`);
   }
+
+  const resData = JSON.parse(text);
   if (!resData.encrypt) {
-    console.error(resData);
-    throw new Error(`${realMethod} ${url} 请求错误`);
+    // 未解密的数据
+    debug(text);
+    throw new Error(`${realMethod} ${realURL} 请求错误`);
   }
+
   const decryptData = decrypt(xSign, resData.encrypt);
+  // 解密的数据W
+  debug(JSON.stringify(decryptData));
   if (decryptData.status !== 0) {
-    console.error(decryptData);
     throw new Error(decryptData.message);
   }
   return decryptData.data || {};
@@ -226,5 +240,3 @@ const request = async(url, method, data = {}) => {
 
 module.exports.decrypt = decrypt;
 module.exports.request = request;
-module.exports.lFn = lFn;
-module.exports.jFn = jFn;
